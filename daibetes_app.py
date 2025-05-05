@@ -1,8 +1,25 @@
 import streamlit as st
 import joblib
-
+import base64
 
 loaded_model = joblib.load('daibetes.pkl')
+
+def set_background(image_file):
+    """Set a background image using base64 encoding."""
+    with open(image_file, "rb") as image:
+        encoded = base64.b64encode(image.read()).decode()
+    css = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/png;base64,{encoded}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }}
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
+
 
 def main():
     st.markdown("<h1 style='color:grey;'>Diabetes Prediction</h1>", unsafe_allow_html=True)
@@ -14,6 +31,9 @@ def main():
    
     
     age = st.number_input('Age', min_value=1, max_value=120, value=30)
+
+    
+    set_background("Health .jpg") 
 
     if st.button('Predict'):
 
