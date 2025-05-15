@@ -1,6 +1,7 @@
 import streamlit as st
 import joblib
 import base64
+import os
 
 loaded_model = joblib.load('daibetes.pkl')
 
@@ -33,8 +34,10 @@ def main():
     age = st.number_input('Age', min_value=1, max_value=120, value=30)
 
     
-    set_background("Health .jpg") 
-
+    # set_background("Health .jpg") 
+    print(os.path.exists("Health .jpg"))  
+    print(os.getcwd())
+    
     if st.button('Predict'):
 
         input_data = [[ glucose, blood_pressure,
